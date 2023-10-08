@@ -5,15 +5,15 @@ import random
 class Game:
     def __init__(self):
         self.grid = Grid()
-        self.blocks = [I(), J(), L(), O(), S(), T(), Z()]
+        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
 
     def get_random_block(self):
-        if len(self.blocks) == 0:
-            self.blocks = [I(), J(), L(), O(), S(), T(), Z()]
-        block = random.choice(self.blocks)
-        self.blocks.remove(block)
+        if len(self.tetrominos) == 0:
+            self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
+        block = random.choice(self.tetrominos)
+        self.tetrominos.remove(block)
         return block
 
     def move_left(self):

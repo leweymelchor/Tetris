@@ -12,6 +12,8 @@ pygame.display.set_caption("Tetris")
 clock = pygame.time.Clock()
 
 game = Game()
+GAME_UPDATE = pygame.USEREVENT
+pygame.time.set_timer(GAME_UPDATE, 200)
 
 while True:
 
@@ -30,6 +32,9 @@ while True:
                 game.move_down()
             if event.key == pygame.K_UP:
                 game.rotate()
+
+        if event.type == GAME_UPDATE:
+            game.move_down()
 
 
     screen.fill(dark_blue)
