@@ -24,7 +24,7 @@ clock = pygame.time.Clock()
 
 game = Game()
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 200)
+pygame.time.set_timer(GAME_UPDATE, 275)
 
 
 while True:
@@ -45,6 +45,7 @@ while True:
                 game.move_right()
             if event.key == pygame.K_DOWN and game.game_over == False:
                 game.move_down()
+                game.update_score(0, 1)
             if event.key == pygame.K_UP and game.game_over == False:
                 game.rotate()
 
@@ -52,6 +53,7 @@ while True:
             game.move_down()
 
 
+    score_value = font.render(str(game.score), True, Colors.white)
     screen.fill(Colors.dark_blue)
     screen.blit(score_text, (365, 20, 50, 50))
     pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
@@ -59,9 +61,19 @@ while True:
     pygame.draw.rect(screen, Colors.light_blue, next_rect, 0, 10)
 
     game.draw(screen)
+    score = screen.blit(score_value, score_value.get_rect(
+        centerx = score_rect.centerx, centery = score_rect.centery
+        ))
     if game.game_over == True:
         screen.fill(Colors.dark_blue)
+        screen.blit(score_text, (365, 20, 50, 50))
+        pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
+        score = screen.blit(score_value, score_value.get_rect(
+        centerx = score_rect.centerx, centery = score_rect.centery
+        ))
         screen.blit(restart_message, textRect)
+
+
 
     pygame.display.update()
     clock.tick(60)
