@@ -24,9 +24,19 @@ class Block:
             moved_tiles.append(position)
         return moved_tiles
 
+    def rotate(self):
+        self.rotation_state += 1
+        if self.rotation_state == len(self.cells):
+            self.rotation_state = 0
+
+    def undo_rotation(self):
+        self.rotation_state -= 1
+        if self.rotation_state == -1:
+            self.rotation_state = len(self.cells) - 1
+
     def draw(self, screen):
         tiles = self.get_cell_positions()
         for tile in tiles:
             tile_rect = pygame.Rect(tile.column * self.cell_size + 1, tile.row * self.cell_size + 1,
             self.cell_size - 1, self.cell_size - 1)
-            pygame.draw.rect(screen, self.colors[self.id], tile_rect)
+            pygame.draw.rect(screen, self.colors[self.id], tile_rect, width = 2, border_radius = 3)

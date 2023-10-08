@@ -1,7 +1,7 @@
 import pygame, sys
 from game import Game
 
-pygame.init
+pygame.init()
 dark_blue = (44, 44, 127)
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -20,6 +20,17 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                game.move_left()
+            if event.key == pygame.K_RIGHT:
+                game.move_right()
+            if event.key == pygame.K_DOWN:
+                game.move_down()
+            if event.key == pygame.K_UP:
+                game.rotate()
+
 
     screen.fill(dark_blue)
     game.draw(screen)
