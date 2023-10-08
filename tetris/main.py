@@ -1,26 +1,30 @@
 import pygame, sys
 from game import Game
+from colors import Colors
 
 pygame.init()
-dark_blue = (44, 44, 127)
-white = (255, 255, 255)
-black = (0, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 128)
 
-screen = pygame.display.set_mode((300, 600))
+X = 500
+Y = 620
+
+screen = pygame.display.set_mode((X, Y))
 pygame.display.set_caption("Tetris")
 
-font = pygame.font.Font('freesansbold.ttf', 16)
-restart_message = font.render('Press any key to play again...', True, white)
+font = pygame.font.Font('freesansbold.ttf', 20)
+restart_message = font.render('Press any key to play again...', True, Colors.white)
 textRect = restart_message.get_rect()
-textRect.center = (300 // 2, 600 // 2)
+textRect.center = (X // 2), (Y // 2)
+
+score_text = font.render('Score', True, Colors.white)
+score_rect = pygame.Rect(320, 55, 170, 60)
+next_text = font.render('Next', True, Colors.white)
+next_rect = pygame.Rect(320, 215, 170, 180)
 
 clock = pygame.time.Clock()
 
 game = Game()
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 20)
+pygame.time.set_timer(GAME_UPDATE, 200)
 
 
 while True:
@@ -48,10 +52,15 @@ while True:
             game.move_down()
 
 
-    screen.fill(dark_blue)
+    screen.fill(Colors.dark_blue)
+    screen.blit(score_text, (365, 20, 50, 50))
+    pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
+    screen.blit(next_text, (375, 180, 50, 50))
+    pygame.draw.rect(screen, Colors.light_blue, next_rect, 0, 10)
+
     game.draw(screen)
     if game.game_over == True:
-        screen.fill(black)
+        screen.fill(Colors.dark_blue)
         screen.blit(restart_message, textRect)
 
     pygame.display.update()
