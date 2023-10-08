@@ -8,6 +8,7 @@ class Game:
         self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
+        self.game_over = False
 
     def get_random_block(self):
         if len(self.tetrominos) == 0:
@@ -39,6 +40,9 @@ class Game:
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
         self.grid.clear_full_rows()
+
+        if self.block_fits() == False:
+            self.game_over = True
 
     def block_fits(self):
         tiles = self.current_block.get_cell_positions()
