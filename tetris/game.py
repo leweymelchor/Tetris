@@ -6,35 +6,45 @@ import pygame
 class Game:
     def __init__(self):
         self.grid = Grid()
-        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
+        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z(), I()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.game_over = False
         self.score = 0
+        self.multiplier = 1
+        if self.multiplier > 4:
+            self.multiplier = 4
+
+        self.cleared_lines = 0
+
         self.rotate_sound = pygame.mixer.Sound("sounds/rotate.mp3")
         self.clear_sound = pygame.mixer.Sound("sounds/tetris-clear.mp3")
         self.land_sound = pygame.mixer.Sound("sounds/tetris-land.mp3")
         self.over_sound = pygame.mixer.Sound("sounds/game-over.mp3")
+
         pygame.mixer.music.load("sounds/tetris-theme.mp3")
         pygame.mixer.music.set_volume(0.3)
         pygame.mixer.music.play(-1)
 
     def update_score(self, lines_cleared, move_down_points):
         if lines_cleared == 1:
-            self.score += 100
+            self.score += (100 * self.multiplier)
+            self.cleared_lines += 1
         elif lines_cleared == 2:
-            self.score += 250
+            self.score += (300 * self.multiplier)
+            self.cleared_lines += 2
         elif lines_cleared == 3:
-            self.score += 500
+            self.score += (600 * self.multiplier)
+            self.cleared_lines += 3
         elif lines_cleared == 4:
-            self.score += 750
-        elif lines_cleared >= 5:
-            self.score += 1000
-        self.score += move_down_points
+            self.score += (1000 * self.multiplier)
+            self.cleared_lines += 4
+            self.multiplier += 1
+        self.score += (move_down_points * self.multiplier)
 
     def get_random_block(self):
         if len(self.tetrominos) == 0:
-            self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
+            self.tetrominos = [I(), J(), L(), O(), S(), T(), Z(), I()]
         block = random.choice(self.tetrominos)
         self.tetrominos.remove(block)
         return block
@@ -77,7 +87,7 @@ class Game:
 
     def reset(self):
         self.grid.reset()
-        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
+        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z(), I()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.score = 0
@@ -109,8 +119,8 @@ class Game:
         self.current_block.draw(screen, 11, 11)
 
         if self.next_block.id == 3:
-            self.next_block.draw(screen, 255, 290)
+            self.next_block.draw(screen, 255, 235)
         elif self.next_block.id == 4:
-            self.next_block.draw(screen, 255, 280)
+            self.next_block.draw(screen, 255, 220)
         else:
-            self.next_block.fill(screen, 270, 270)
+            self.next_block.fill(screen, 270, 215)

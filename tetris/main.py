@@ -15,16 +15,22 @@ restart_message = font.render('Press any key to play again...', True, Colors.whi
 textRect = restart_message.get_rect()
 textRect.center = (X // 2), (Y // 2)
 
+# TEXT
 score_text = font.render('Score', True, Colors.white)
-score_rect = pygame.Rect(320, 55, 170, 60)
+score_rect = pygame.Rect(320, 50, 170, 60)
 next_text = font.render('Next', True, Colors.white)
-next_rect = pygame.Rect(320, 215, 170, 180)
+next_rect = pygame.Rect(320, 175, 170, 150)
+x_text = font.render('x', True, Colors.white)
+mult_text = font.render('Multiplier', True, Colors.white)
+mult_rect = pygame.Rect(320, 530, 170, 60)
+cleared_text = font.render('Lines Cleared', True, Colors.white)
+cleared_rect = pygame.Rect(320, 400, 170, 60)
 
 clock = pygame.time.Clock()
 
 game = Game()
 GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 275)
+pygame.time.set_timer(GAME_UPDATE, 600)
 
 
 while True:
@@ -55,25 +61,43 @@ while True:
 
 
     score_value = font.render(str(game.score), True, Colors.white)
+    mult_value = font.render(str(game.multiplier), True, Colors.white)
+    cleared_value = font.render(str(game.cleared_lines), True, Colors.white)
+
     screen.fill(Colors.dark_blue)
-    screen.blit(score_text, (365, 20, 50, 50))
+
+    screen.blit(score_text, (375, 15, 50, 50))
+    screen.blit(next_text, (375, 140, 50, 50))
+    screen.blit(mult_text, (355, 490, 50, 50))
+    screen.blit(cleared_text, (335, 360, 50, 50))
+
     pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
-    screen.blit(next_text, (375, 180, 50, 50))
     pygame.draw.rect(screen, Colors.light_blue, next_rect, 0, 10)
+    pygame.draw.rect(screen, Colors.light_blue, mult_rect, 0, 10)
+    pygame.draw.rect(screen, Colors.light_blue, cleared_rect, 0, 10)
 
     game.draw(screen)
+
     score = screen.blit(score_value, score_value.get_rect(
-        centerx = score_rect.centerx, centery = score_rect.centery
-        ))
+        centerx = score_rect.centerx, centery = score_rect.centery))
+
+
+    mult = screen.blit(mult_value, mult_value.get_rect(
+        centerx = mult_rect.centerx, centery = mult_rect.centery))
+    screen.blit(x_text, (385, 550, 50, 50))
+
+    cleared = screen.blit(cleared_value, cleared_value.get_rect(
+        centerx = cleared_rect.centerx, centery = cleared_rect.centery))
 
     if game.game_over == True:
         pygame.mixer.music.play(0)
+
         screen.fill(Colors.dark_blue)
         screen.blit(score_text, (365, 20, 50, 50))
         pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
         score = screen.blit(score_value, score_value.get_rect(
-        centerx = score_rect.centerx, centery = score_rect.centery
-        ))
+            centerx = score_rect.centerx, centery = score_rect.centery))
+
         screen.blit(restart_message, textRect)
 
 
