@@ -91,6 +91,8 @@ class Game:
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.score = 0
+        self.multiplier = 1
+        self.cleared_lines = 0
 
     def block_fits(self):
         tiles = self.current_block.get_cell_positions()
@@ -113,6 +115,11 @@ class Game:
             if self.grid.is_inside(tile.row, tile.column) == False:
                 return False
         return True
+
+    # def tet_speed(self):
+    #     speed = 1
+    #     if self.cleared_lines >= 10 and self.cleared_lines / 10 == self.cleared_lines // 10:
+    #         speed -= 20
 
     def draw(self, screen):
         self.grid.draw(screen)

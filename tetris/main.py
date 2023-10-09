@@ -34,7 +34,6 @@ pygame.time.set_timer(GAME_UPDATE, 600)
 
 
 while True:
-
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
@@ -55,6 +54,7 @@ while True:
                 game.update_score(0, 1)
             if event.key == pygame.K_UP or event.key == pygame.K_w and game.game_over == False:
                 game.rotate()
+
 
         if event.type == GAME_UPDATE and game.game_over == False:
             game.move_down()
@@ -77,7 +77,6 @@ while True:
     pygame.draw.rect(screen, Colors.light_blue, cleared_rect, 0, 10)
 
     game.draw(screen)
-
     score = screen.blit(score_value, score_value.get_rect(
         centerx = score_rect.centerx, centery = score_rect.centery))
 
