@@ -6,7 +6,7 @@ import pygame
 class Game:
     def __init__(self):
         self.grid = Grid()
-        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z(), I()]
+        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.game_over = False
@@ -44,7 +44,7 @@ class Game:
 
     def get_random_block(self):
         if len(self.tetrominos) == 0:
-            self.tetrominos = [I(), J(), L(), O(), S(), T(), Z(), I()]
+            self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
         block = random.choice(self.tetrominos)
         self.tetrominos.remove(block)
         return block
@@ -67,6 +67,24 @@ class Game:
             self.land_sound.play()
             self.land_sound.set_volume(0.3)
 
+    def add_speed(self):
+        self.speed_up = 0
+
+        if self.cleared_lines >= 10 and self.cleared_lines < 20:
+            self.speed_up += 75
+        elif self.cleared_lines >= 20 and self.cleared_lines < 30:
+            self.speed_up += 100
+        elif self.cleared_lines >= 30 and self.cleared_lines < 40:
+            self.speed_up += 150
+        elif self.cleared_lines >= 40 and self.cleared_lines < 50:
+            self.speed_up += 200
+        elif self.cleared_lines >= 50 and self.cleared_lines < 60:
+            self.speed_up += 250
+        elif self.cleared_lines >= 60:
+            self.speed_up += 300
+
+        return self.speed_up
+
     def lock_block(self):
         tiles = self.current_block.get_cell_positions()
         for position in tiles:
@@ -81,13 +99,16 @@ class Game:
 
         if self.block_fits() == False:
             self.game_over = True
-            pygame.time.delay(100)
+            if self.speed_up >= 400:
+                pygame.time.delay(600)
+            else:
+                pygame.time.delay(300)
             self.over_sound.play()
             self.over_sound.set_volume(1)
 
     def reset(self):
         self.grid.reset()
-        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z(), I()]
+        self.tetrominos = [I(), J(), L(), O(), S(), T(), Z()]
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.score = 0

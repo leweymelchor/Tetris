@@ -10,12 +10,12 @@ Y = 620
 screen = pygame.display.set_mode((X, Y))
 pygame.display.set_caption("Tetris")
 
+# TEXT
 font = pygame.font.Font('freesansbold.ttf', 20)
 restart_message = font.render('Press any key to play again...', True, Colors.white)
 textRect = restart_message.get_rect()
 textRect.center = (X // 2), (Y // 2)
 
-# TEXT
 score_text = font.render('Score', True, Colors.white)
 score_rect = pygame.Rect(320, 50, 170, 60)
 next_text = font.render('Next', True, Colors.white)
@@ -29,9 +29,6 @@ cleared_rect = pygame.Rect(320, 400, 170, 60)
 clock = pygame.time.Clock()
 
 game = Game()
-GAME_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(GAME_UPDATE, 600)
-
 
 while True:
     for event in pygame.event.get():
@@ -55,6 +52,11 @@ while True:
             if event.key == pygame.K_UP or event.key == pygame.K_w and game.game_over == False:
                 game.rotate()
 
+        if game.game_over == False:
+            increase = game.add_speed()
+            speed = 400 - increase
+            GAME_UPDATE = pygame.USEREVENT
+            pygame.time.set_timer(GAME_UPDATE, speed)
 
         if event.type == GAME_UPDATE and game.game_over == False:
             game.move_down()
@@ -77,6 +79,7 @@ while True:
     pygame.draw.rect(screen, Colors.light_blue, cleared_rect, 0, 10)
 
     game.draw(screen)
+
     score = screen.blit(score_value, score_value.get_rect(
         centerx = score_rect.centerx, centery = score_rect.centery))
 
