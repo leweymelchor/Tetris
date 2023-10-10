@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((X, Y))
 pygame.display.set_caption("Tetris")
 
 # TEXT
-font = pygame.font.Font('freesansbold.ttf', 20)
+font = pygame.font.Font('fonts/Rajdhani-Medium.ttf', 20)
 restart_message = font.render('Press any key to play again...', True, Colors.white)
 textRect = restart_message.get_rect()
 textRect.center = (X // 2), (Y // 2)
@@ -22,9 +22,9 @@ next_text = font.render('Next', True, Colors.white)
 next_rect = pygame.Rect(320, 175, 170, 150)
 x_text = font.render('x', True, Colors.white)
 mult_text = font.render('Multiplier', True, Colors.white)
-mult_rect = pygame.Rect(320, 530, 170, 60)
+mult_rect = pygame.Rect(315, 530, 170, 60)
 cleared_text = font.render('Lines Cleared', True, Colors.white)
-cleared_rect = pygame.Rect(320, 400, 170, 60)
+cleared_rect = pygame.Rect(315, 400, 170, 60)
 
 clock = pygame.time.Clock()
 
@@ -71,10 +71,10 @@ while True:
 
     screen.fill(Colors.dark_blue)
 
-    screen.blit(score_text, (375, 15, 50, 50))
-    screen.blit(next_text, (375, 140, 50, 50))
-    screen.blit(mult_text, (355, 490, 50, 50))
-    screen.blit(cleared_text, (335, 360, 50, 50))
+    screen.blit(score_text, (380, 15, 50, 50))
+    screen.blit(next_text, (385, 140, 50, 50))
+    screen.blit(mult_text, (365, 490, 50, 50))
+    screen.blit(cleared_text, (350, 360, 50, 50))
 
     pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
     pygame.draw.rect(screen, Colors.light_blue, next_rect, 0, 10)
@@ -89,7 +89,7 @@ while True:
 
     mult = screen.blit(mult_value, mult_value.get_rect(
         centerx = mult_rect.centerx, centery = mult_rect.centery))
-    screen.blit(x_text, (385, 550, 50, 50))
+    screen.blit(x_text, (385, 547, 50, 50))
 
     cleared = screen.blit(cleared_value, cleared_value.get_rect(
         centerx = cleared_rect.centerx, centery = cleared_rect.centery))
@@ -99,7 +99,7 @@ while True:
         pygame.mixer.music.play(0)
 
         screen.fill(Colors.dark_blue)
-        screen.blit(score_text, (365, 20, 50, 50))
+        screen.blit(score_text, (360, 20, 50, 50))
         pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10)
         score = screen.blit(score_value, score_value.get_rect(
             centerx = score_rect.centerx, centery = score_rect.centery))
