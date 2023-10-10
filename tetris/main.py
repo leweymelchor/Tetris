@@ -40,6 +40,7 @@ while True:
         if event.type == pygame.KEYDOWN:
             if game.game_over == True:
                 pygame.mixer.music.play(-1)
+                pygame.mixer.music.set_volume(0.3)
                 game.game_over = False
                 game.reset()
             if event.key == pygame.K_LEFT or event.key == pygame.K_a and game.game_over == False:
@@ -47,6 +48,8 @@ while True:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d and game.game_over == False:
                 game.move_right()
             if event.key == pygame.K_DOWN or event.key == pygame.K_s and game.game_over == False:
+                game.rotate_sound.play()
+                game.rotate_sound.set_volume(0.4)
                 game.move_down()
                 game.update_score(0, 1)
             if event.key == pygame.K_UP or event.key == pygame.K_w and game.game_over == False:
@@ -92,6 +95,7 @@ while True:
         centerx = cleared_rect.centerx, centery = cleared_rect.centery))
 
     if game.game_over == True:
+        pygame.mixer.music.set_volume(0)
         pygame.mixer.music.play(0)
 
         screen.fill(Colors.dark_blue)
@@ -105,4 +109,4 @@ while True:
 
 
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(30)

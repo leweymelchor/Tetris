@@ -1,16 +1,16 @@
 class Colors:
-    dark_grey = (26, 31, 40)
-    green = (47, 230, 23)
-    red = (232, 18, 18)
-    orange = (226, 116, 17)
-    yellow = (237, 234, 4)
-    purple = (166, 0, 247)
-    cyan = (21, 204, 209)
-    blue = (13, 64, 216)
+    dark_grey = (42, 47, 79)
+    green = (158, 179, 132)
+    red = (255, 135, 135)
+    orange = (255, 133, 81)
+    yellow = (246, 186, 111)
+    purple = (77, 60, 119)
+    cyan = (155, 205, 210)
+    blue = (150, 182, 197)
 
-    dark_blue = (44, 44, 127)
-    light_blue = (59, 85, 162)
-    white = (255, 255, 255)
+    dark_blue = (145, 127, 179)
+    light_blue = (229, 190, 236)
+    white = (253, 226, 243)
     black = (0, 0, 0)
 
     @classmethod

@@ -39,7 +39,8 @@ class Block:
         for tile in tiles:
             tile_rect = pygame.Rect(offset_x + tile.column * self.cell_size,
                 offset_y + tile.row * self.cell_size, self.cell_size - 1, self.cell_size - 1)
-            pygame.draw.rect(screen, self.colors[self.id], tile_rect, width = 2, border_radius = 3)
+            pygame.draw.rect(screen, self.colors[self.id], tile_rect)
+            # pygame.draw.rect(screen, self.colors[self.id], tile_rect, width = 2, border_radius = 3)
 
     def fill(self, screen, offset_x, offset_y):
         tiles = self.get_cell_positions()

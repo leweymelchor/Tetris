@@ -12,8 +12,6 @@ class Game:
         self.game_over = False
         self.score = 0
         self.multiplier = 1
-        if self.multiplier > 4:
-            self.multiplier = 4
 
         self.cleared_lines = 0
 
@@ -39,7 +37,8 @@ class Game:
         elif lines_cleared == 4:
             self.score += (1000 * self.multiplier)
             self.cleared_lines += 4
-            self.multiplier += 1
+            if self.multiplier <= 3:
+                self.multiplier += 1
         self.score += (move_down_points * self.multiplier)
 
     def get_random_block(self):
@@ -51,11 +50,15 @@ class Game:
 
     def move_left(self):
         self.current_block.move(0, -1)
+        self.rotate_sound.play()
+        self.rotate_sound.set_volume(0.4)
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.move(0, 1)
 
     def move_right(self):
         self.current_block.move(0, 1)
+        self.rotate_sound.play()
+        self.rotate_sound.set_volume(0.4)
         if self.block_inside() == False or self.block_fits() == False:
             self.current_block.move(0, -1)
 
@@ -99,10 +102,6 @@ class Game:
 
         if self.block_fits() == False:
             self.game_over = True
-            if self.speed_up >= 400:
-                pygame.time.delay(600)
-            else:
-                pygame.time.delay(300)
             self.over_sound.play()
             self.over_sound.set_volume(1)
 
@@ -136,11 +135,6 @@ class Game:
             if self.grid.is_inside(tile.row, tile.column) == False:
                 return False
         return True
-
-    # def tet_speed(self):
-    #     speed = 1
-    #     if self.cleared_lines >= 10 and self.cleared_lines / 10 == self.cleared_lines // 10:
-    #         speed -= 20
 
     def draw(self, screen):
         self.grid.draw(screen)
